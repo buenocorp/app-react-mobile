@@ -17,6 +17,7 @@ export default class Box extends Component {
   state = { box: {} };
 
   async componentDidMount() {
+    //verifica se já tem box na propriedade @RocketBox:box
     const box = await AsyncStorage.getItem("@RocketBox:box");
     this.subscribeToNewFiles(box);
 

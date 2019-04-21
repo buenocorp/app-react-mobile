@@ -10,7 +10,8 @@ export default class Main extends Component {
   state = { newBox: "" };
 
   async componentDidMount() {
-    const box = await AsyncStorage.getItem("@RocketBox: box");
+    //verifica se já tem box na propriedade @RocketBox:box
+    const box = await AsyncStorage.getItem("@RocketBox:box");
 
     if (box) {
       this.props.navigation.navigate("Box");
@@ -22,6 +23,8 @@ export default class Main extends Component {
       title: this.state.newBox
     });
 
+    //nome da propriedade para gravar informação: @RocketBox:box
+    //resposta do axios do backend: response.data._id
     await AsyncStorage.setItem("@RocketBox:box", response.data._id);
 
     //history serve para navegar o usuário para alguma tela
