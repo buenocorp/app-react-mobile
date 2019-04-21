@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, TextInput, TouchOpacity } from "react-native";
+import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
 import styles from "./styles";
@@ -22,7 +22,7 @@ export default class Main extends Component {
       title: this.state.newBox
     });
 
-    await AsyncStorage.setItem("@RocketBox: box", response.data._id);
+    await AsyncStorage.setItem("@RocketBox:box", response.data._id);
 
     //history serve para navegar o usuário para alguma tela
     this.props.navigation.navigate("Box");
@@ -30,7 +30,7 @@ export default class Main extends Component {
 
   render() {
     return (
-      <View>
+      <View style ={styles.container}>
         <Image style={styles.logo} source={logo} />
 
         <TextInput

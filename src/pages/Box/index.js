@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { View, Text, FlatLis, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 
 import styles from "./styles";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -25,7 +25,7 @@ export default class Box extends Component {
     this.setState({ box: response.data });
   }
 
-  subscribeToNewFiles = (box) => {
+  subscribeToNewFiles = box => {
     const io = socket("https://app-react-backend.herokuapp.com");
 
     io.emit("connectionRoom", box);
@@ -53,13 +53,13 @@ export default class Box extends Component {
   };
 
   handleUpload = () => {
-    ImagePicker.launchimageLibrary({}, async upload => {
+    ImagePicker.launchImageLibrary({}, async upload => {
       if (upload.error) {
         console.log("ImagePicker error");
       } else if (upload.didCancel) {
         console.log("Canceled by user");
       } else {
-        const data = new FormatData();
+        const data = new FormData();
 
         const [prefix, suffix] = upload.fileName.split(".");
         const ext = suffix.toLowerCase() === "heic" ? "jpg" : suffix;
@@ -70,7 +70,7 @@ export default class Box extends Component {
           name: `${prefix}.${ext}`
         });
 
-        api.post(`boxes/${this.state.box._id}`, data);
+        api.post(`boxes/${this.state.box._id}/files`, data);
       }
     });
   };
@@ -95,8 +95,9 @@ export default class Box extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.boxTitle}>{this.state.box.title}</Text>
+        <Text style={styles.boxTitle}>{this.state.box._id}</Text>
 
-        <FlatLis
+        <FlatList
           style={styles.list}
           data={this.state.box.files}
           keyExtractor={file => file._id}
@@ -104,7 +105,7 @@ export default class Box extends Component {
           renderItem={this.renderItem}
         />
 
-        <TouchableOpacity onPress={this.handleUpload} style={styles.file}>
+        <TouchableOpacity onPress={this.handleUpload} style={styles.fab}>
           <Icon name="cloud-upload" size={24} color="#FFF" />
         </TouchableOpacity>
       </View>

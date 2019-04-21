@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
     paddingHorizontal: 30
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   input: { 
       height: 48,
       borderWidth:1,
-      borderColor:'#DDD'
+      borderColor:'#DDD',
       borderRadius: 4,
       fontSize:16,
       paddingHorizontal:20,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     marginTop:10,
     backgroundColor: '#7159c1',
     justifyContent: 'center',
-    alighItems: 'center'
+    alignItems: 'center'
 },
 
 buttonText: { 
